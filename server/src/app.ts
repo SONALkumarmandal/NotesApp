@@ -1,4 +1,4 @@
-import express,{Application} from "express"
+import express, { type Application } from "express"
 import { Logger } from "./middlewares/logger.middleware"
 import noteFeatures from "./routes/noteRoutes"
 import { errorMiddleware } from "./middlewares/err.middleare"
