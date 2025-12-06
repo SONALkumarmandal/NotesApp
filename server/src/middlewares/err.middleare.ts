@@ -1,9 +1,11 @@
-import { Response,Request,NextFunction } from "express";
+import { Request, Response, NextFunction } from "express";
 
-export const errorMiddleware = (err : any ,req : Request,res : Response ,next : NextFunction)=>{
-    console.log("Error Found ! : ",err.message)
-    res.status(err.statusCode || 500).json({
-        success : false,
-        message : err.message || "Internal Server Error"
-    })
-}
+export const errorMiddleware = (err: any, req: Request, res: Response, next: NextFunction) => {
+  console.error(err);
+  if (res.headersSent) return next(err);
+
+  const status = err?.statusCode || 500;
+  const message = err?.message || "Internal Server Error";
+
+  return res.status(status).json({ success: false, message });
+};
