@@ -15,4 +15,5 @@ export const createApp = (): Application =>{
     // error handler
     app.use(errorMiddleware)
     return app
+    
 }
