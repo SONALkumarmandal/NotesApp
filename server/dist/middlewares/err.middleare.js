@@ -6,4 +6,3 @@ export const errorMiddleware = (err, req, res, next) => {
     const message = err?.message || "Internal Server Error";
     return res.status(status).json({ success: false, message });
 };
-//# sourceMappingURL=err.middleare.js.map

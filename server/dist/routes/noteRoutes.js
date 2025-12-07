@@ -7,4 +7,3 @@ router.get("/apphealth", getAppHealth);
 router.get("/getenv", getEnv);
 router.post("/create", createNote);
 export default router;
-//# sourceMappingURL=noteRoutes.js.map

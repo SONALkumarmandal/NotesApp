@@ -1,2 +1,1 @@
-export {};
-//# sourceMappingURL=database.config.js.map
+"use strict";

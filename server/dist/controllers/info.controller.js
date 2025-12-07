@@ -1,4 +1,3 @@
-import { Request, Response, NextFunction } from "express";
 import { config } from "../config/app.config";
 export const getAppInfo = (req, res, next) => {
     res.json({
@@ -22,4 +21,3 @@ export const getEnv = (req, res, next) => {
         port: config.port
     });
 };
-//# sourceMappingURL=info.controller.js.map

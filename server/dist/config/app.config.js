@@ -5,4 +5,3 @@ export const config = {
     env_node: process.env.NODE || "Developement",
     app_name: process.env.APP_NAME || "Notes_App"
 };
-//# sourceMappingURL=app.config.js.map

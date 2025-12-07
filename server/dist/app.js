@@ -1,4 +1,4 @@
-import express, { Application } from "express";
+import express from "express";
 import { Logger } from "./middlewares/logger.middleware";
 import noteFeatures from "./routes/noteRoutes";
 import { errorMiddleware } from "./middlewares/err.middleare";
@@ -13,4 +13,3 @@ export const createApp = () => {
     app.use(errorMiddleware);
     return app;
 };
-//# sourceMappingURL=app.js.map
