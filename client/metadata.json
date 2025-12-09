@@ -1,0 +1,5 @@
+{
+  "name": "NeuroNote",
+  "description": "A smart, AI-enhanced notetaking application that helps you organize, summarize, and refine your thoughts using Gemini.",
+  "requestFramePermissions": []
+}
