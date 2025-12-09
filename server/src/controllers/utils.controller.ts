@@ -27,12 +27,12 @@ export const getNoteById = async (req: Request, res: Response, next: NextFunctio
 
 export const createNote = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { title, content } = req.body;
+    const { title, content, tags } = req.body;
     if (!title || typeof title !== "string") {
       return res.status(400).json({ success: false, message: "Title is required" });
     }
 
-    const newNote = await noteService.createNote({ title, content });
+    const newNote = await noteService.createNote({ title, content, tags });
     return respond(res, 201, newNote);
   } catch (err) {
     next(err);
@@ -44,8 +44,8 @@ export const updateNote = async (req: Request, res: Response, next: NextFunction
     const id = Number(req.params.id);
     if (Number.isNaN(id)) return res.status(400).json({ success: false, message: "Invalid id" });
 
-    const { title, content } = req.body;
-    const updated = await noteService.updateNote(id, { title, content });
+    const { title, content, tags } = req.body;
+    const updated = await noteService.updateNote(id, { title, content, tags });
     return respond(res, 200, updated);
   } catch (err: any) {
     // If note not found prisma will throw; convert to 404
