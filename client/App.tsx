@@ -3,7 +3,7 @@ import Sidebar from './components/Sidebar';
 import Editor from './components/Editor';
 import Assistant from './components/Assistant';
 import { Note, AIView } from './types';
-import { createNote, getNotes, saveNotes } from './services/storageService';
+import { createNote, getNotes, saveNotes, deleteNoteFromBackend } from './services/storageService';
 import { generateTags, summarizeNote, polishContent, generateTitle } from './services/geminiService';
 
 function App() {
@@ -14,21 +14,27 @@ function App() {
 
   // Initial Load
   useEffect(() => {
-    const loadedNotes = getNotes();
-    if (loadedNotes.length > 0) {
-      setNotes(loadedNotes);
-      setActiveNoteId(loadedNotes[0].id);
-    } else {
-      handleCreateNote();
-    }
+    const loadNotes = async () => {
+      const loadedNotes = await getNotes();
+      if (loadedNotes.length > 0) {
+        setNotes(loadedNotes);
+        setActiveNoteId(loadedNotes[0].id);
+      } else {
+        handleCreateNote();
+      }
+    };
+    loadNotes();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Persistence
   useEffect(() => {
-    if (notes.length > 0) {
-      saveNotes(notes);
-    }
+    const saveAsync = async () => {
+      if (notes.length > 0) {
+        await saveNotes(notes);
+      }
+    };
+    saveAsync();
   }, [notes]);
 
   const activeNote = notes.find(n => n.id === activeNoteId);
@@ -40,10 +46,15 @@ function App() {
     setAiView(AIView.None);
   };
 
-  const handleDeleteNote = (id: string, e: React.MouseEvent) => {
+  const handleDeleteNote = async (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
     const confirmed = window.confirm("Are you sure you want to delete this note?");
     if (!confirmed) return;
+
+    // Delete from backend if it has a numeric ID
+    if (id.match(/^\d+$/)) {
+      await deleteNoteFromBackend(id);
+    }
 
     setNotes(prev => prev.filter(n => n.id !== id));
     if (activeNoteId === id) {

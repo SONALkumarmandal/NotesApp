@@ -1,4 +1,5 @@
 import express, { type Application } from "express"
+import cors from "cors"
 import { Logger } from "./middlewares/logger.middleware"
 import noteFeatures from "./routes/noteRoutes"
 import { errorMiddleware } from "./middlewares/err.middleare"
@@ -6,6 +7,7 @@ import { errorMiddleware } from "./middlewares/err.middleare"
 export const createApp = (): Application =>{
     const app=express()
     // middleware
+    app.use(cors())
     app.use(express.json())
     app.use(Logger)
 
